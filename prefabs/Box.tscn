@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cw37os6mdmabm"]
+
+[ext_resource type="Script" uid="uid://cgw7ffmjix06p" path="res://Scripts/box.gd" id="1_ned5n"]
+[ext_resource type="Texture2D" uid="uid://dg5jppjueiosq" path="res://sprites/Items/Boxes/Box1/Hit (28x24).png" id="2_tt52o"]
+[ext_resource type="Texture2D" uid="uid://diewwaw7kpovo" path="res://sprites/Items/Boxes/Box1/Idle.png" id="3_32rfd"]
+[ext_resource type="Texture2D" uid="uid://b4bcumroobn60" path="res://sprites/Items/Boxes/Box2/Break.png" id="4_v8sxm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f0cu"]
+atlas = ExtResource("2_tt52o")
+region = Rect2(0, 0, 28, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6dp3"]
+atlas = ExtResource("2_tt52o")
+region = Rect2(28, 0, 28, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ceot"]
+atlas = ExtResource("2_tt52o")
+region = Rect2(56, 0, 28, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lcsmq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8f0cu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6dp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ceot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_32rfd")
+}],
+"loop": false,
+"name": &"Hit",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_32rfd")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lcsmq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uy8f0"]
+size = Vector2(18, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcsmq"]
+atlas = ExtResource("4_v8sxm")
+region = Rect2(6.609146, 5.0210533, 15.2340355, 13.453434)
+
+[sub_resource type="Gradient" id="Gradient_uy8f0"]
+offsets = PackedFloat32Array(0.33950618, 0.7593496)
+colors = PackedColorArray(0.7254902, 0.43137255, 0.32941177, 1, 0.89411765, 0.7882353, 0.5921569, 1)
+
+[node name="Box" type="StaticBody2D" unique_id=102202600]
+script = ExtResource("1_ned5n")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=161252568]
+sprite_frames = SubResource("SpriteFrames_lcsmq")
+animation = &"Hit"
+autoplay = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=814304989]
+visible = false
+shape = SubResource("RectangleShape2D_lcsmq")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1201653190]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=333584990]
+visible = false
+shape = SubResource("RectangleShape2D_uy8f0")
+debug_color = Color(0.9930038, 0, 0.250587, 0.41960785)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1550765595]
+emitting = false
+amount = 30
+texture = SubResource("AtlasTexture_lcsmq")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(10, 10)
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 80)
+initial_velocity_min = 60.0
+initial_velocity_max = 80.0
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_uy8f0")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
