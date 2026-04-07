@@ -11,15 +11,23 @@ config_version=5
 [application]
 
 config/name="Walk and Jump (ADS - 5MA SEG)"
-run/main_scene="res://Scenes/level_1.tscn"
+run/main_scene="uid://i5yw0flxp2m8"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://bqtqqlefl40io"
 
 [display]
 
 window/size/viewport_width=960
 window/size/viewport_height=544
 window/stretch/mode="viewport"
+
+[global_group]
+
+Player=""
 
 [input]
 
